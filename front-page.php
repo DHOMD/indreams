@@ -104,7 +104,7 @@
                     
                     <div>
                     <?php if (indreams_get_option('indreams_threecolumn_fet_image1') != '') { ?>
-                        <img src="<?php echo esc_url(indreams_get_option('indreams_threecolumn_fet_image1')); ?>">
+                        <a href='http://www.tfund.com/KreweofPirates2015'><img src="<?php echo esc_url(indreams_get_option('indreams_threecolumn_fet_image1')); ?>">
                     <?php } else { ?>
                      <img src="<?php echo get_template_directory_uri(); ?>/images/1.jpg">
                     <?php } ?>
@@ -128,7 +128,7 @@
                     
                     <div>
                     <?php if (indreams_get_option('indreams_threecolumn_fet_image2') != '') { ?>
-                       <img src="<?php echo esc_url(indreams_get_option('indreams_threecolumn_fet_image2')); ?>">
+                       <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tourguidechuck%40gmail%2ecom&lc=US&item_name=Krewe%20of%20Pirates&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest'><img src="<?php echo esc_url(indreams_get_option('indreams_threecolumn_fet_image2')); ?>">
                     <?php } else { ?>
                        <img src="<?php echo get_template_directory_uri(); ?>/images/2.jpg">
                     <?php } ?>
@@ -196,7 +196,7 @@
 
                                     <?php
                                 } else {
-                                    ?><a href="<?php the_permalink(); ?>"><img src='<?php echo get_template_directory_uri(); ?>/images/bg.jpg' alt='feature3' width='516px' height="210px !important" ></a><?php
+                                    ?><a href="<?php the_permalink(); ?>"><img src='<?php echo get_template_directory_uri(); ?>/images/bg2.jpg' alt='feature3' width='516px' height="210px !important" ></a><?php
                                 }
                                 ?>	
                             </div>
