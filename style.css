@@ -3,7 +3,7 @@ Author: Yogesh Bhade
 Theme Name: InDreams
 Theme URI: http://wpthemes.t15.org/indreams/
 Description: InDreams is a beautiful theme, designed especially for business websites. This theme has many customizable features that will help you showcase your company's web presence.
-Version: 1.2.3
+Version: 1.2.4
 License: GNU General Public License v3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Tags: black, white, light, dark, three-columns, right-sidebar, responsive-layout, custom-background, custom-header, custom-menu, featured-images, flexible-header, sticky-post, theme-options, accessibility-ready 
@@ -33,7 +33,7 @@ div.contact p{
 }
 
 div.header-wrapper{
-    background: #000000 url(images/bg-dark2.jpg);
+    background: #313030 url(images/bg-dark.jpg);
     padding: 15px 0px;
 
 }
@@ -50,7 +50,7 @@ div.logo img{
 }
 div.contact {
 text-align: right;
-padding: 3px 0;
+padding: 20px 0;
 }
 div.contact pre {
 border: none;
@@ -60,7 +60,7 @@ font-size: 14px;
 }
 
 div.menu-wrapper{
-background: #000000;
+background: #12a3df;
 box-shadow: 0px 0px 8px 5px rgba(0, 0, 0, 0.2);
 text-align: center;
 }

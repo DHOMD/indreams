@@ -9,6 +9,7 @@ get_header(); ?>
 
 	<div id="primary" class="content-area">
              <div class="container">
+            <div class="col-md-8">
                 <div class="content-bar" id="content">
 		 <!-- Start the Loop. -->
                 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>  
@@ -41,6 +42,13 @@ get_header(); ?>
                 <!-- ------------------Comment starts ----------------------- -->
                 <?php comments_template(); ?>
                 <!-- ------------------Comment Ends----------------------- -->
+                </div>
+                 </div>
+                 <div class="col-md-4">
+                    
+                     <?php get_sidebar(); ?>
+                         
+                 </div>
                  
                  </div><!-- #main -->
 	</div><!-- #primary -->

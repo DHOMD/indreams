@@ -20,7 +20,7 @@
        
             <div class="header-wrapper">
             <div class="container">
-                <div class="col-md-12 col-sm-12">
+                <div class="col-md-4 col-sm-4">
                     <div class="logo">
                         <?php if (indreams_get_option('indreams_logo') != '') { ?>
                                 <a href="<?php echo home_url('/'); ?>">

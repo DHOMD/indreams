@@ -11,19 +11,44 @@
             <div class="container">
                 <div class="col-md-3">
                     <div class='fsidebar' >
+                        <?php if (is_active_sidebar('first-footer-widget-area')) : ?>
+                            <?php dynamic_sidebar('first-footer-widget-area'); ?>
+                        <?php else : ?><h4>Widgets</h4>
+                        <p>Default widgets will appear when you install the theme. You can make your own widgets through the widget option under the theme option panel. The process is very simple.</p>
+                        <?php endif; ?>
                     </div>
 
                 </div>
                 <div class="col-md-3">
                     <div class='fsidebar' >
+                        <?php if (is_active_sidebar('second-footer-widget-area')) : ?>
+                            <?php dynamic_sidebar('second-footer-widget-area'); ?>
+                        <?php else : ?><h4>About Us</h4>
+                        <p>We make simple and easy WordPress themes that will make your website easily. You just need to install the theme on your WordPress dashboard and your website is ready within minutes.</p>
+                     <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class='fsidebar'>
+                        <?php if (is_active_sidebar('third-footer-widget-area')) : ?>
+                            <?php dynamic_sidebar('third-footer-widget-area'); ?>
+                        <?php else : ?><h4>Have Questions</h4>
+                        <p>If you have any queries regarding the theme or need any help you can contact us at our support forum</p>
+                     <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class='fsidebar'>
+                        <?php if (is_active_sidebar('fourth-footer-widget-area')) : ?>
+                            <?php dynamic_sidebar('fourth-footer-widget-area'); ?>
+                        <?php else : ?><h4>Latest blog</h4>
+                        <ul>
+                            <li><a>First blog</a></li>
+                            <li><a>Second blog</a></li>
+                            <li><a>Third blog</a></li>
+                            <li><a>Fourth blog</a></li>
+                        </ul>
+                     <?php endif; ?>
                     </div>
                 </div>
             </div>

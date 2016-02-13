@@ -20,9 +20,9 @@ get_header();
                     <!-- *** Post1 Starts *** -->
                                        
                     <div class="post-content clear">
-                        <h1 class="embarassing"><?php echo "Yee be lost!" ?></h1>
+                        <h1 class="embarassing"><?php echo "This is somewhat embarrassing, isn't it?" ?></h1>
                         <p>
-                            <?php echo "Best be getting back home."; ?>
+                            <?php echo "It seems we can't find what you are looking for. Trying one of the links below, can help."; ?>
                         </p>
                         <?php the_widget('WP_Widget_Recent_Posts', array('number' => 10), array('widget_id' => '404')); ?>
 
