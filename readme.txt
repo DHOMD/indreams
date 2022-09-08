@@ -1,46 +1,38 @@
-== Theme: InDreams Theme ==
+=== indreams ===
 
-* By InDreams, http://www.themes.t15.org/
+Contributors: automattic
+Tags: translation-ready, custom-background, theme-options, custom-menu, post-formats, threaded-comments
 
-== Theme License & Copyright ==
-InDreams Theme is distributed under the terms of the GNU GPL
-InDreams Theme - Copyright 2014 InDreams Theme, themes.t15.org
+Requires at least: 4.0
+Tested up to: 4.4.2
+Stable tag: 1.0.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-License and resources links for images:
----------------------------------------
-All images are created by InDreams and 
-all images licensed under GPL.
+A starter theme called indreams, or underscores.
 
-1. Image Name: bg.jpg
-   This image is taken from my camera when I was in trip. I have included this image with GPL license. 
+== Description ==
 
-License and resources links for js bundled:
--------------------------------------------
-1. Bootstrap v3.0.3
-    Copyright 2013 Twitter, Inc
-    Licensed under the Apache License v2.0
-    http://www.apache.org/licenses/LICENSE-2.0
+Hi. I'm a starter theme called indreams, or underscores, if you like. I'm a theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
 
-2. jQuery FlexSlider
-    jQuery FlexSlider v2.2.2
-    Copyright 2012 WooThemes
-    licensed under GPL and MIT
+== Installation ==
 
-3. jQuery.meanmenu.js | GPL
-    jQuery meanmenu v2.0.8
-    Copyright (C) 2012-2014 Chris Wharton @ MeanThemes (https://github.com/meanthemes/meanMenu)
-    Dual licensed under the MIT and GPL licenses.
+1. In your admin panel, go to Appearance > Themes and click the Add New button.
+2. Click Upload and Choose File, then select the theme's .zip file. Click Install Now.
+3. Click Activate to use your new theme right away.
 
-4. jQuery Superfish Menu Plugin - v1.7.4
-    Copyright (c) 2013 Joel Birch
-    Dual licensed under the MIT and GPL licenses:
-    http://www.opensource.org/licenses/mit-license.php
-    http://www.gnu.org/licenses/gpl.html
-	
-5. prettyPhoto.js
-    prettyPhoto.js v3.1.5
-    Dual licensed under the MIT and GPL licenses.
+== Frequently Asked Questions ==
 
-6. Google Fonts
-    Oxygen Font https://www.google.com/fonts/specimen/Arvo
-    License: Distributed under SIL Open Font License, 1.1 (Open font license) 
+= Does this theme support any plugins? =
+
+indreams includes support for Infinite Scroll in Jetpack.
+
+== Changelog ==
+
+= 1.0 - May 12 2015 =
+* Initial release
+
+== Credits ==
+
+* Based on Underscores http://underscores.me/, (C) 2012-2016 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
+* normalize.css http://necolas.github.io/normalize.css/, (C) 2012-2016 Nicolas Gallagher and Jonathan Neal, [MIT](http://opensource.org/licenses/MIT)

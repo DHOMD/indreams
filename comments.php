@@ -1,47 +1,86 @@
 <?php
 /**
- * The template for displaying Comments.
+ * The template for displaying comments.
  *
- * The area of the page that contains comments and the comment form.
+ * This is the template that displays the area of the page that contains both the current comments
+ * and the comment form.
  *
- */
-/*
- * If the current post is protected by a password and the visitor has not yet
- * entered the password we will return early without loading the comments.
+ * @link https://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package indreams
  */
 
+/*
+ * If the current post is protected by a password and
+ * the visitor has not yet entered the password we will
+ * return early without loading the comments.
+ */
+if ( post_password_required() ) {
+	return;
+}
 ?>
-<!-- You can start editing here. -->
-<div id="commentsbox" class="post">
-    <?php if (have_comments()) : ?>
-        <h3 id="comments">
-            <?php comments_number('No Responses', 'One Response', '% Responses'); ?>
-            so far.</h3>
-        <ol class="commentlist">
-            <?php wp_list_comments(array('avatar_size' => 70)); ?>
-        </ol>
-        <div class="comment-nav">
-            <div class="alignleft">
-                <?php previous_comments_link() ?>
-            </div>
-            <div class="alignright">
-                <?php next_comments_link() ?>
-            </div>
-        </div>
-    <?php else : // this is displayed if there are no comments so far ?>
-        <?php if (comments_open()) : ?>
-            <!-- If comments are open, but there are no comments. -->
-        <?php else : // comments are closed  ?>
-            <!-- If comments are closed.
-            <p class="nocomments">Comments are closed.</p>  -->
-        <?php endif; ?>
-    <?php endif; ?>	
-    <?php if (comments_open()) : ?>
-        <div class="commentform_wrapper">
-            <div class="post-info">Leave a Comment</div>
-            <div id="comment-form">
-                <?php comment_form(); ?>
-            </div>
-        </div>
-    <?php endif; // if you delete this the sky will fall on your head  ?>
-</div>
+
+<div id="comments" class="comments-area">
+
+	<?php
+	// You can start editing here -- including this comment!
+	if ( have_comments() ) : ?>
+		<h5 class="comments-title">
+			<?php
+				printf( // WPCS: XSS OK.
+					esc_html( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'indreams' ) ),
+					number_format_i18n( get_comments_number() ),
+					'<span>' . get_the_title() . '</span>'
+				);
+			?>
+		</h5>
+
+		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
+		<nav id="comment-nav-above" class="navigation comment-navigation" role="navigation">
+			<h5 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'indreams' ); ?></h5>
+			<div class="nav-links">
+
+				<div class="nav-previous"><?php previous_comments_link( esc_html__( 'Older Comments', 'indreams' ) ); ?></div>
+				<div class="nav-next"><?php next_comments_link( esc_html__( 'Newer Comments', 'indreams' ) ); ?></div>
+
+			</div><!-- .nav-links -->
+		</nav><!-- #comment-nav-above -->
+		<?php endif; // Check for comment navigation. ?>
+
+		<ol class="comment-list">
+			<?php
+				wp_list_comments( array(
+					'style'      => 'ol',
+					'short_ping' => true,
+					'avatar_size' => 42,
+				) );
+			?>
+		</ol><!-- .comment-list -->
+
+		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
+		<nav id="comment-nav-below" class="navigation comment-navigation" role="navigation">
+			<h5 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'indreams' ); ?></h5>
+			<div class="nav-links">
+
+				<div class="nav-previous"><?php previous_comments_link( esc_html__( 'Older Comments', 'indreams' ) ); ?></div>
+				<div class="nav-next"><?php next_comments_link( esc_html__( 'Newer Comments', 'indreams' ) ); ?></div>
+
+			</div><!-- .nav-links -->
+		</nav><!-- #comment-nav-below -->
+		<?php
+		endif; // Check for comment navigation.
+
+	endif; // Check for have_comments().
+
+
+	// If comments are closed and there are comments, let's leave a little note, shall we?
+	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
+
+		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'indreams' ); ?></p>
+	<?php
+	endif;
+
+	comment_form();
+	?>
+
+</div><!-- #comments -->
