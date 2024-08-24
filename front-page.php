@@ -62,8 +62,8 @@
                 <!-- ***Slide 2 Text end *** -->
                 </div>
             </li> 
-                <?php } else {
-                } ?>
+                <?php } else { 
+                    } ?>
 
 
         </ul>
@@ -192,33 +192,32 @@
                             <div class="thumb clear">
                                 <?php if ((function_exists('has_post_thumbnail')) && (has_post_thumbnail())) { ?>
 
-                                    <?php the_post_thumbnail(array(516, 210));
-                                    ; ?>
+                                    <?php the_post_thumbnail( array(516, 210) );; ?>
 
                                     <?php
                                 } else {
                                     ?><a href="<?php the_permalink(); ?>"><img src='<?php echo get_template_directory_uri(); ?>/images/bg2.jpg' alt='feature3' width='516px' height="210px !important" ></a><?php
                                 }
-    ?>	
+                                ?>	
                             </div>
                             <div class="post-meta">
                                 <span class="meta-admin">Written by : <?php the_author_posts_link(); ?></span>
                                 <span class="meta-date">Posted On :<?php
-        $archive_year = get_the_time('Y');
-    $archive_month = get_the_time('m');
-    $archive_day = get_the_time('d');
-    ?>
+                                    $archive_year = get_the_time('Y');
+                                    $archive_month = get_the_time('m');
+                                    $archive_day = get_the_time('d');
+                                    ?>
                                     <a href="<?php
                                echo get_day_link($archive_year, $archive_month, $archive_day);
-    ?>"> <?php echo esc_html(get_the_date()) ?></a></span>
+                               ?>"> <?php echo esc_html(get_the_date()) ?></a></span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <?php
-endwhile;
-else:
-    ?>
+            endwhile;
+        else:
+            ?>
 <?php endif; ?>
     </div>
 </div>

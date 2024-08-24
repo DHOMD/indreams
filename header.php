@@ -1,9 +1,9 @@
 <?php
-?>
+ ?>
 <!DOCTYPE html>
 <html lang="en" <?php language_attributes(); ?>>
     <head>
-        <meta charset="<?php bloginfo('charset'); ?>">
+        <meta charset="<?php bloginfo( 'charset' ); ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><?php wp_title(); ?></title>
@@ -14,7 +14,7 @@
     <body <?php body_class(); ?>>
         <div>
             <div class="header">
-                <a class="screen-reader-text skip-link" href="#content"><?php _e('Skip to content', 'indreams'); ?></a>    
+                <a class="screen-reader-text skip-link" href="#content"><?php _e( 'Skip to content', 'indreams' ); ?></a>    
             </div>
         <!-- header start here -->
        
@@ -36,8 +36,8 @@
                     <div class="contact" >
                         <?php if (indreams_get_option('indreams_rightside') != '') { ?>
                                 <p><?php echo esc_html(indreams_get_option('indreams_rightside')); ?></p>
-                        <?php } else {
-                        } ?> 
+                        <?php } else { 
+                             } ?> 
                     </div>
                 </div>
             </div>

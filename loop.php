@@ -15,10 +15,10 @@
                     <li class="meta-admin">by : <?php the_author_posts_link(); ?></li>
                     <li class="meta-date"><?php
                         $archive_year = get_the_time('Y');
-    $archive_month = get_the_time('m');
-    $archive_day = get_the_time('d');
-    ?>
-						<a href="<?php the_permalink() ?>"> <?php echo esc_html(get_the_date()) ?></a></li>
+                        $archive_month = get_the_time('m');
+                        $archive_day = get_the_time('d');
+                        ?>
+						<a href="<?php the_permalink() ?>"> <?php echo esc_html( get_the_date() ) ?></a></li>
                     <li class="meta-cat">Category : <?php the_category(' ,'); ?></li>
                     <li class="meta-cat">Tags : <?php echo get_the_tag_list(); ?></li>
                     <li class="meta-comm">Comment : <?php comments_popup_link('0', '1', '%'); ?></li>
@@ -27,26 +27,25 @@
             <div class="thumb clear">
                 <?php if ((function_exists('has_post_thumbnail')) && (has_post_thumbnail())) { ?>
                     <a href="<?php the_permalink(); ?>">
-						 <?php the_post_thumbnail(array(774, 350));
-                    ; ?>
+						 <?php the_post_thumbnail( array(774, 350) );; ?>
                     </a>
                     <?php
                 } else {
-                }
-    ?>	
+                  }
+                ?>	
             </div>
             <div class="post-content clear">
                 <?php echo the_excerpt(); ?>
                 <?php wp_link_pages(); ?>
                 <a href="<?php the_permalink() ?>" class="wpanch"><?php echo sprintf(
-                    esc_html__('Continue reading . . . %s', 'indreams'),
-                    the_title('<span class="screen-reader-text">', '</span>', false)
-                ) ; ?>
+                    esc_html__( 'Continue reading . . . %s', 'indreams' ),
+                    the_title( '<span class="screen-reader-text">', '</span>', false )
+                   ) ; ?>
                 </a>
             </div>
         </div>
         <?php
-endwhile;
+    endwhile;
 else:
     ?>
     <div>

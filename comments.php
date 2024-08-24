@@ -28,10 +28,10 @@
                 <?php next_comments_link() ?>
             </div>
         </div>
-    <?php else : // this is displayed if there are no comments so far?>
+    <?php else : // this is displayed if there are no comments so far ?>
         <?php if (comments_open()) : ?>
             <!-- If comments are open, but there are no comments. -->
-        <?php else : // comments are closed?>
+        <?php else : // comments are closed  ?>
             <!-- If comments are closed.
             <p class="nocomments">Comments are closed.</p>  -->
         <?php endif; ?>
@@ -43,5 +43,5 @@
                 <?php comment_form(); ?>
             </div>
         </div>
-    <?php endif; // if you delete this the sky will fall on your head?>
+    <?php endif; // if you delete this the sky will fall on your head  ?>
 </div>

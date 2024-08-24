@@ -3,8 +3,7 @@
 /* Head Hook
   /*----------------------------------------------------------------------------------- */
 
-function of_head()
-{
+function of_head() {
     do_action('of_head');
 }
 
@@ -12,8 +11,7 @@ function of_head()
 /* Get the style path currently selected */
 /* ----------------------------------------------------------------------------------- */
 
-function of_style_path()
-{
+function of_style_path() {
     $style = $_REQUEST['style'];
     if ($style != '') {
         $style_path = $style;
@@ -21,11 +19,10 @@ function of_style_path()
         $stylesheet = indreams_get_option('of_alt_stylesheet');
         $style_path = str_replace(".css", "", $stylesheet);
     }
-    if ($style_path == "default") {
+    if ($style_path == "default")
         echo 'images';
-    } else {
+    else
         echo 'styles/' . $style_path;
-    }
 }
 
 /* ----------------------------------------------------------------------------------- */
@@ -36,8 +33,7 @@ if (is_admin() && isset($_GET['activated']) && $pagenow == "themes.php") {
     add_action('admin_head', 'of_option_setup');
 }
 
-function of_option_setup()
-{
+function of_option_setup() {
     //Update EMPTY options
     $of_array = array();
     add_option('of_options', $of_array);
@@ -46,9 +42,8 @@ function of_option_setup()
     $std = '';
     foreach ($template as $option) {
         if ($option['type'] != 'heading') {
-            if (isset($option['id'])) {
+            if (isset($option['id']))
                 $id = $option['id'];
-            }
             if (isset($option['std'])) {
                 $std = $option['std'];
             }
@@ -77,8 +72,7 @@ function of_option_setup()
 /* Admin Backend */
 /* ----------------------------------------------------------------------------------- */
 
-function optionsframework_admin_head()
-{
+function optionsframework_admin_head() {
 
     //Tweaked the message on theme activate
     ?>

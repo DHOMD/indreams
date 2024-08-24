@@ -3,8 +3,7 @@
 add_action('init', 'of_options');
 if (!function_exists('of_options')) {
 
-    function of_options()
-    {
+    function of_options() {
         // VARIABLES
         $themename = 'InDreams Theme';
         $shortname = "of";
@@ -16,7 +15,7 @@ if (!function_exists('of_options')) {
         $showhide_sections = array("Show" => "Show", "Hide" => "Hide");
         // Background Defaults
         $background_defaults = array('color' => '', 'image' => '', 'repeat' => 'repeat', 'position' => 'top center', 'attachment' => 'scroll');
-
+        
         $lan_stylesheets = array("Default" => "Default");
         // Pull all the categories into an array
         $options_categories = array();
@@ -54,12 +53,12 @@ if (!function_exists('of_options')) {
             "std" => "",
             "type" => "upload");
 
-
+        
         $options[] = array("name" => "Right Side Content In Header",
             "desc" => "Here you can add your email or address.",
             "id" => "indreams_rightside",
             "std" => "",
-            "type" => "textarea");
+            "type" => "textarea");  
         //=========================================================================
         ////Home Page Slider Setting
         $options[] = array("name" => "Slider Settings",
@@ -68,47 +67,47 @@ if (!function_exists('of_options')) {
         $options[] = array("name" => "First Slider Image Setting",
             "type" => "saperate",
             "class" => "saperator");
-
+        
         $options[] = array("name" => "First Slider Image",
             "desc" => "The optimal size of the image is 1600 px wide x 750 px height, but it can be varied as per your requirement.",
             "id" => "indreams_slideimage1",
             "std" => "",
             "type" => "upload");
-
+        
         $options[] = array("name" => "First Slider Image Heading",
             "desc" => "Mention the heading for your First Slider Image here.",
             "id" => "indreams_sliderheading1",
             "std" => "",
             "type" => "text");
-
+        
         $options[] = array("name" => "First Slider Image Description",
             "desc" => "Mention the description for your First Slider Image here.",
             "id" => "indreams_sliderdes1",
             "std" => "",
             "type" => "text");
-
+     
         $options[] = array("name" => "Second Slider Image Setting",
             "type" => "saperate",
             "class" => "saperator");
-
+        
         $options[] = array("name" => "Second Slider Image",
             "desc" => "The optimal size of the image is 1600 px wide x 750 px height, but it can be varied as per your requirement.",
             "id" => "indreams_slideimage2",
             "std" => "",
             "type" => "upload");
-
+        
         $options[] = array("name" => "Second Slider Image Heading",
             "desc" => "Mention the heading for your Second Slider Image here.",
             "id" => "indreams_sliderheading2",
             "std" => "",
             "type" => "text");
-
+        
         $options[] = array("name" => "Second Slider Image Description",
             "desc" => "Mention the description for your Second Slider Image here.",
             "id" => "indreams_sliderdes2",
             "std" => "",
             "type" => "text");
-
+        
         //****=============================================================================****//
         //Homepage Feature Tagline
         $options[] = array("name" => "Featured Punchline",
@@ -125,9 +124,9 @@ if (!function_exists('of_options')) {
             "id" => "indreams_page_tagline_desc",
             "std" => "",
             "type" => "textarea");
-
+	        
         //****=============================================================================****//
-        //HomePage four column feature
+        //HomePage four column feature		
         $options[] = array("name" => "Three column Feature",
             "type" => "heading");
 
@@ -205,11 +204,11 @@ if (!function_exists('of_options')) {
             "id" => "indreams_threecolumn_fet_desc3",
             "std" => "",
             "type" => "textarea");
-
-        //****=============================================================================****//
-        //****=============================================================================****//
-        //****-----------This code is used for creating color styleshteet options----------****//
-        //****=============================================================================****//
+					
+//****=============================================================================****//
+//****=============================================================================****//
+//****-----------This code is used for creating color styleshteet options----------****//							
+//****=============================================================================****//				
         $options[] = array("name" => "Styling Options",
             "type" => "heading");
 
@@ -219,9 +218,9 @@ if (!function_exists('of_options')) {
             "std" => "",
             "type" => "textarea");
 
-        //****=============================================================================****//
-        //****-------------This code is used for creating Bottom Footer Setting options-------------****//
-        //****=============================================================================****//
+//****=============================================================================****//
+//****-------------This code is used for creating Bottom Footer Setting options-------------****//					
+//****=============================================================================****//			
         $options[] = array("name" => "Footer Settings",
             "type" => "heading");
         $options[] = array("name" => "Footer Text",
@@ -230,10 +229,10 @@ if (!function_exists('of_options')) {
             "std" => "",
             "type" => "textarea");
         //------------------------------------------------------------------//
-
-        //****=============================================================================****//
-        //****-------------This code is used for creating social logos options-------------****//
-        //****=============================================================================****//
+        
+//****=============================================================================****//
+//****-------------This code is used for creating social logos options-------------****//					
+//****=============================================================================****//
 
         $options[] = array("name" => "Social Icons",
             "type" => "heading");
@@ -272,7 +271,7 @@ if (!function_exists('of_options')) {
             "desc" => "Mention the URL of your Linkedin here.",
             "id" => "indreams_linkedin",
             "std" => "",
-            "type" => "text");
+            "type" => "text");        
 
         indreams_update_option('of_template', $options);
         indreams_update_option('of_themename', $themename);
@@ -280,3 +279,4 @@ if (!function_exists('of_options')) {
     }
 
 }
+?>

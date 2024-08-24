@@ -1,5 +1,4 @@
 <?php
-
 define('INDREAMS_DAILY_ARCHVIES', __('Daily Archives', 'indreams'));
 define('INDREAMS_MONTHLY_ARCHIVES', __('Monthly Archives', 'indreams'));
 define('INDREAMS_YEARLY_ARCHIVES', __('Yearly Archives', 'indreams'));

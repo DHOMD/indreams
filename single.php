@@ -23,10 +23,10 @@ get_header(); ?>
                                     <li class="meta-admin">By : <?php the_author_posts_link(); ?></li>
                                     <li class="meta-date"><?php
                         $archive_year = get_the_time('Y');
-                    $archive_month = get_the_time('m');
-                    $archive_day = get_the_time('d');
-                    ?>
-				    <a href="<?php the_permalink() ?>"> <?php echo esc_html(get_the_date()) ?></a></li>
+                        $archive_month = get_the_time('m');
+                        $archive_day = get_the_time('d');
+                        ?>
+				    <a href="<?php the_permalink() ?>"> <?php echo esc_html( get_the_date() ) ?></a></li>
                                     <li class="meta-cat">Category : <?php the_category(', '); ?></li>
 				    <li class="meta-cat">Tags : <?php echo get_the_tag_list(); ?></li>
                                     <li class="meta-comm">Comment : <?php comments_popup_link('0', '1', '%'); ?></li>
@@ -35,12 +35,12 @@ get_header(); ?>
                             <div class="post-content clear">
                                 <?php the_content(); ?>
                                 
-                                <?php wp_link_pages(); ?>
+                                <?php wp_link_pages( ); ?>
                                 
                             </div>
                         </div>
                         <?php
-                endwhile;
+                    endwhile;
                 else:
                     ?>
                     <div>
