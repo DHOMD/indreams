@@ -3,12 +3,13 @@
 /* ----------------------------------------------------------------------------------- */
 /* Options Framework Admin Interface - optionsframework_add_admin */
 /* ----------------------------------------------------------------------------------- */
-// Load static framework options pages 
+// Load static framework options pages
 $functions_path = get_template_directory() . '/functions/';
 ?>
 <?php
 
-function indreams_optionsframework_add_admin() {
+function indreams_optionsframework_add_admin()
+{
     global $query_string;
 
     $themename = indreams_get_option('of_themename');
@@ -35,7 +36,8 @@ add_action('admin_menu', 'indreams_optionsframework_add_admin');
 /* Options Framework Reset Function - of_reset_options */
 /* ----------------------------------------------------------------------------------- */
 
-function indreams_reset_options($options, $page = '') {
+function indreams_reset_options($options, $page = '')
+{
     global $wpdb;
     $count = 0;
     $excludes = array('blogname', 'blogdescription');
@@ -54,7 +56,7 @@ function indreams_reset_options($options, $page = '') {
                 foreach ($option['options'] as $option_key => $option_option) {
                     indreams_delete_option("{$option_id}_{$option_key}");
                 }
-            } else if (is_array($option_type)) {
+            } elseif (is_array($option_type)) {
                 foreach ($option_type as $inner_option) {
                     $option_id = $inner_option['id'];
                     indreams_delete_option($option_id);
@@ -75,7 +77,8 @@ function indreams_reset_options($options, $page = '') {
 /* Build the Options Page - optionsframework_options_page */
 /* ----------------------------------------------------------------------------------- */
 
-function indreams_optionsframework_options_page() {
+function indreams_optionsframework_options_page()
+{
     $options = indreams_get_option('of_template');
     $themename = indreams_get_option('of_themename');
     ?>
@@ -118,7 +121,9 @@ function indreams_optionsframework_options_page() {
             </span>
         </form>
     </div>
-    <?php if (!empty($update_message)) echo $update_message; ?>
+    <?php if (!empty($update_message)) {
+        echo $update_message;
+    } ?>
     <div style="clear:both;"></div>
     </div>
     <!--wrap-->
@@ -129,18 +134,20 @@ function indreams_optionsframework_options_page() {
 /* Load required javascripts for Options Page - of_load_only */
 /* ----------------------------------------------------------------------------------- */
 
-function indreams_load_only() {
+function indreams_load_only()
+{
     add_action('admin_head', 'of_admin_head');
 
     wp_enqueue_script('jquery-ui-core');
     wp_register_script('jquery-input-mask', get_template_directory_uri() . '/functions/js/jquery.maskedinput-1.2.2.js', array('jquery'));
     wp_enqueue_script('jquery-input-mask');
 
-    function of_admin_head() {
+    function of_admin_head()
+    {
 
         echo '<link rel="stylesheet" type="text/css" href="' . get_template_directory_uri() . '/functions/admin-style.css" media="screen" />';
 
-        // COLOR Picker 
+        // COLOR Picker
         ?>
         <link rel="stylesheet" media="screen" type="text/css" href="<?php echo get_template_directory_uri(); ?>/functions/css/colorpicker.css" />
         <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/functions/js/colorpicker.js"></script>
@@ -152,8 +159,8 @@ function indreams_load_only() {
         <?php
         $options = indreams_get_option('of_template');
         foreach ($options as $option) {
-            if ($option['type'] == 'color' OR $option['type'] == 'typography' OR $option['type'] == 'border') {
-                if ($option['type'] == 'typography' OR $option['type'] == 'border') {
+            if ($option['type'] == 'color' or $option['type'] == 'typography' or $option['type'] == 'border') {
+                if ($option['type'] == 'typography' or $option['type'] == 'border') {
                     $option_id = $option['id'];
                     $temp_color = indreams_get_option($option_id);
                     $option_id = $option['id'] . '_color';
@@ -181,11 +188,11 @@ function indreams_load_only() {
                                 }
                                 });
             <?php }
-        } ?>
+            } ?>
 
                         });</script>
         <?php
-        //AJAX Upload
+            //AJAX Upload
         ?>
         <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/functions/js/ajaxupload.js"></script>
         <script type="text/javascript">
@@ -258,10 +265,10 @@ function indreams_load_only() {
                     evt.preventDefault();
             });
                     if ('<?php if (isset($_REQUEST['reset'])) {
-            echo $_REQUEST['reset'];
-        } else {
-            echo 'false';
-        } ?>' == 'true'){
+                        echo $_REQUEST['reset'];
+                    } else {
+                        echo 'false';
+                    } ?>' == 'true'){
 
             var reset_popup = jQuery('#of-popup-reset');
                     reset_popup.fadeIn();
@@ -400,7 +407,8 @@ function indreams_load_only() {
 /* ----------------------------------------------------------------------------------- */
 add_action('wp_ajax_of_ajax_post_action', 'indreams_ajax_callback');
 
-function indreams_ajax_callback() {
+function indreams_ajax_callback()
+{
     global $wpdb; // this is how you get access to the database
 
 
@@ -428,7 +436,7 @@ function indreams_ajax_callback() {
 
         $id = $_POST['data']; // Acts as the name
         indreams_delete_option($id);
-    } elseif ($save_type == 'options' OR $save_type == 'framework') {
+    } elseif ($save_type == 'options' or $save_type == 'framework') {
         $data = $_POST['data'];
 
         parse_str($data, $output);
@@ -515,7 +523,8 @@ function indreams_ajax_callback() {
 /* Generates The Options Within the Panel - optionsframework_machine */
 /* ----------------------------------------------------------------------------------- */
 
-function indreams_optionsframework_machine($options) {
+function indreams_optionsframework_machine($options)
+{
 
     $counter = 0;
     $menu = '';
@@ -562,10 +571,11 @@ function indreams_optionsframework_machine($options) {
                             $selected = ' selected="selected"';
                         }
                     } else {
-                        if (isset($value['std']))
+                        if (isset($value['std'])) {
                             if ($value['std'] == $option) {
                                 $selected = ' selected="selected"';
                             }
+                        }
                     }
                     $output .= '<option' . $selected . '>';
                     $output .= $option;
@@ -705,8 +715,9 @@ function indreams_optionsframework_machine($options) {
 
                 /* Font Face */
                 $val = $default['face'];
-                if ($typography_stored['face'] != "")
+                if ($typography_stored['face'] != "") {
                     $val = $typography_stored['face'];
+                }
                 $font01 = '';
                 $font02 = '';
                 $font03 = '';
@@ -909,7 +920,8 @@ function indreams_optionsframework_machine($options) {
 /* OptionsFramework Uploader - indreams_optionsframework_uploader_function */
 /* ----------------------------------------------------------------------------------- */
 
-function indreams_optionsframework_uploader_function($id, $std, $mod) {
+function indreams_optionsframework_uploader_function($id, $std, $mod)
+{
     //$uploader .= '<input type="file" id="attachement_'.$id.'" name="attachement_'.$id.'" class="upload_input"></input>';
     //$uploader .= '<span class="submit"><input name="save" type="submit" value="Upload" class="button upload_save" /></span>';
     $uploader = '';
@@ -928,7 +940,7 @@ function indreams_optionsframework_uploader_function($id, $std, $mod) {
         $hide = 'hide';
     }
     $uploader .= '<span class="button image_reset_button ' . $hide . '" id="reset_' . $id . '" title="' . $id . '">Remove</span>';
-    $uploader .='</div>' . "\n";
+    $uploader .= '</div>' . "\n";
     $uploader .= '<div class="clear"></div>' . "\n";
     $findme = 'wp-content/uploads';
     $imgvideocheck = strpos($upload, $findme);

@@ -16,24 +16,24 @@
 
 	<?php
 
-		$footer_widget_style = esc_attr( get_theme_mod('footer_widget_style', '3') );
-        $footer_credits      = get_theme_mod('footer_credits');
+        $footer_widget_style = esc_attr(get_theme_mod('footer_widget_style', '3'));
+$footer_credits      = get_theme_mod('footer_credits');
 
-	?>
+?>
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 
 		<div id="" class="footer-wrapper">
 			<div class="container">
-			<?php if (is_active_sidebar('first-footer-widget') || is_active_sidebar('second-footer-widget') || is_active_sidebar('third-footer-widget') || is_active_sidebar('fourth-footer-widget') ) { ?>
+			<?php if (is_active_sidebar('first-footer-widget') || is_active_sidebar('second-footer-widget') || is_active_sidebar('third-footer-widget') || is_active_sidebar('fourth-footer-widget')) { ?>
 				<div class="row footer-widget-wrapper">
-		            <?php if($footer_widget_style=='4'){ ?>
+		            <?php if($footer_widget_style == '4') { ?>
 		                <div class="col-md-3 first">
-		            <?php }elseif($footer_widget_style=='3'){ ?>
+		            <?php } elseif($footer_widget_style == '3') { ?>
 		                <div class="col-md-4 first">
-		            <?php }elseif($footer_widget_style=='2'){ ?>
+		            <?php } elseif($footer_widget_style == '2') { ?>
 		                <div class="col-md-6 first">
-		            <?php }elseif($footer_widget_style=='1'){ ?>
+		            <?php } elseif($footer_widget_style == '1') { ?>
 		                <div class="col-md-12 first">
 		            <?php } ?>
 		                    <div class="footer-widget-column">
@@ -43,14 +43,14 @@
 		                    </div>    
 		                </div>
 		                    
-		            <?php if($footer_widget_style=='4'){ ?>
+		            <?php if($footer_widget_style == '4') { ?>
 		                <div class="col-md-3 second">
-		            <?php }elseif($footer_widget_style=='3'){ ?>
+		            <?php } elseif($footer_widget_style == '3') { ?>
 		                <div class="col-md-4 second">
-		            <?php }elseif($footer_widget_style=='2'){ ?>
+		            <?php } elseif($footer_widget_style == '2') { ?>
 		                <div class="col-md-6 second">
 		            <?php } ?>
-		            <?php if($footer_widget_style=='4' || $footer_widget_style=='3' || $footer_widget_style=='2' ){ ?>
+		            <?php if($footer_widget_style == '4' || $footer_widget_style == '3' || $footer_widget_style == '2') { ?>
 		                    <div class="footer-widget-column">
 		                       <?php if (is_active_sidebar('second-footer-widget')) : ?>
 		                            <?php dynamic_sidebar('second-footer-widget'); ?>
@@ -59,12 +59,12 @@
 		                </div>
 		             <?php } ?>
 		                    
-		            <?php if($footer_widget_style=='4'){ ?>
+		            <?php if($footer_widget_style == '4') { ?>
 		                <div class="col-md-3 third">
-		            <?php }elseif($footer_widget_style=='3'){ ?>
+		            <?php } elseif($footer_widget_style == '3') { ?>
 		                <div class="col-md-4 third">
 		            <?php } ?>
-		            <?php if($footer_widget_style=='4' || $footer_widget_style=='3' ){ ?>
+		            <?php if($footer_widget_style == '4' || $footer_widget_style == '3') { ?>
 		                    <div class="footer-widget-column">
 	                        <?php if (is_active_sidebar('third-footer-widget')) : ?>
 	                            <?php dynamic_sidebar('third-footer-widget'); ?>
@@ -73,7 +73,7 @@
 		                </div>
 		             <?php } ?>
 		                    
-		            <?php if($footer_widget_style=='4'){ ?>
+		            <?php if($footer_widget_style == '4') { ?>
 		                <div class="col-md-3 fourth">
 		                    <div class="footer-widget-column">
 	                        <?php if (is_active_sidebar('fourth-footer-widget')) : ?>
@@ -88,12 +88,12 @@
 		        <div class="row">
 		        	<div class="col-md-12">
 						<div class="site-info text-center">
-						<?php if(isset($footer_credits) && $footer_credits!=''){ ?>
+						<?php if(isset($footer_credits) && $footer_credits != '') { ?>
 							<?php echo $footer_credits; ?>
-						<?php }else{ ?>
-							<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'indreams' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'indreams' ), 'WordPress' ); ?></a>
+						<?php } else { ?>
+							<a href="<?php echo esc_url(__('https://wordpress.org/', 'indreams')); ?>"><?php printf(esc_html__('Proudly powered by %s', 'indreams'), 'WordPress'); ?></a>
 							<span class="sep"> | </span>
-							<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'indreams' ), 'indreams', '<a href="http://gleedthemes.com/" rel="designer">GleedThemes.com</a>' ); ?>
+							<?php printf(esc_html__('Theme: %1$s by %2$s.', 'indreams'), 'indreams', '<a href="http://gleedthemes.com/" rel="designer">GleedThemes.com</a>'); ?>
 						<?php } ?>
 						</div><!-- .site-info -->
 					</div>
@@ -150,7 +150,7 @@
                         <p><?php echo esc_html(indreams_get_option('indreams_footertext')); ?></p>
 
                 <?php } else { ?>    
-                    <p> <a href="<?php echo esc_url( __( 'http://themes.t15.org/indreams', 'indreams' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'indreams' ), 'InDreams' ); ?></a></p>
+                    <p> <a href="<?php echo esc_url(__('http://themes.t15.org/indreams', 'indreams')); ?>"><?php printf(__('Proudly powered by %s', 'indreams'), 'InDreams'); ?></a></p>
                 <?php } ?>
                         
                     </div>
@@ -162,38 +162,44 @@
                             <?php if (indreams_get_option('indreams_facebook') != '') { ?>
                             <li><a href="<?php echo esc_url(indreams_get_option('indreams_facebook')); ?>" alt="facebook"><i class="ftr-fb"><span>Facebook</span></i></a></li>
                         <?php
-                        } else {}
-                        ?>
+                            } else {
+                            }
+?>
 
                         <?php if (indreams_get_option('indreams_twitter') != '') { ?>
                             <li><a href="<?php echo esc_url(indreams_get_option('indreams_twitter')); ?>" alt="twitter"><i class="ftr-tw"><span>Twitter</span></i></a></li>
                         <?php
-                        } else {}
-                        ?>
+                        } else {
+                        }
+?>
 
                         <?php if (indreams_get_option('indreams_google') != '') { ?>
                             <li><a href="<?php echo esc_url(indreams_get_option('indreams_google')); ?>" alt="google+"><i class="ftr-gp"><span>Google+</span></i></a></li>
                         <?php
-                        } else {}
-                        ?>
+                        } else {
+                        }
+?>
 
                         <?php if (indreams_get_option('indreams_rss') != '') { ?>
                             <li><a href="<?php echo esc_url(indreams_get_option('indreams_rss')); ?>" alt="RSS"><i class="ftr-rs"><span>RSS</span></i></a></li>
                         <?php
-                        } else {}
-                        ?>
+                        } else {
+                        }
+?>
 
                         <?php if (indreams_get_option('indreams_pinterest') != '') { ?>
                             <li><a href="<?php echo esc_url(indreams_get_option('indreams_pinterest')); ?>" alt="linkedin"><i class="ftr-pn"><span>Pinterest</span></i></a></li>
                         <?php
-                        } else {}
-                        ?>
+                        } else {
+                        }
+?>
 
                         <?php if (indreams_get_option('indreams_linkedin') != '') { ?>
                            <li><a href="<?php echo esc_url(indreams_get_option('indreams_linkedin')); ?>" alt="linkedin"><i class="ftr-ln"><span>Linkedin</span></i></a></li>
                         <?php
-                        } else {}
-                        ?>
+                        } else {
+                        }
+?>
                         </ul>
                     </div>
 

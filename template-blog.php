@@ -14,11 +14,11 @@ get_header(); ?>
                 <!-- ----------------Post loop starts --------------------- -->
                 <?php
                 $limit = get_option('posts_per_page');
-                $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-                $wp_query->query('showposts=' . $limit . '&paged=' . $paged);
-                $wp_query->is_archive = true;
-                $wp_query->is_home = false;
-                ?>
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$wp_query->query('showposts=' . $limit . '&paged=' . $paged);
+$wp_query->is_archive = true;
+$wp_query->is_home = false;
+?>
                 <?php get_template_part('loop', 'index'); ?> 
 
                 <!-- ------------------Post loop ends----------------------- -->
