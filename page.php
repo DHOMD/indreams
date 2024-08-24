@@ -1,44 +1,49 @@
-<<<<<<< HEAD
 <?php
 /**
- * The template for displaying all pages.
+ * The template for displaying all single posts.
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package indreams
+ * @package InDreams
  */
 
 get_header(); ?>
 
-<div class="page-post-container-wrapper">
-	<div class="container">
-		<div class="row">
+	<div id="primary" class="content-area">
+             <div class="container">
+                <div class="content-bar" id="content">
+		 <!-- Start the Loop. -->
+                <?php if (have_posts()) : while (have_posts()) : the_post(); ?>  
+                        <!-- ---------------Post starts ---------------- -->
+                        <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                            <div class="page-heading">
+                                <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
+                            </div>
+                            
+                            <div class="page-content clear">
+                                <?php the_content(); ?>
+                                
+                                 <?php wp_link_pages();
+                    ?>
+                        
+                            </div>
+                        </div>
+                        <?php
+                endwhile;
+                else:
+                    ?>
+                    <div>
+                        <p>
+                            <?php echo INDREAMS_SORRY_NO_POST_MATCHED_YOUR_CRETERIA; ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+                      
+                        <!----------------------Post Single Ends -------------------------->
+                <!-- ------------------Comment starts ----------------------- -->
+                <?php comments_template(); ?>
+                <!-- ------------------Comment Ends----------------------- -->
+                 
+                 </div><!-- #main -->
+	</div><!-- #primary -->
 
-				<div id="primary" class="content-area">
-					<main id="main" class="site-main" role="main">
 
-						<?php
-                        while (have_posts()) : the_post();
-
-                            get_template_part('template-parts/content', 'page');
-
-                            // If comments are open or we have at least one comment, load up the comment template.
-                            if (comments_open() || get_comments_number()) :
-                                comments_template();
-                            endif;
-
-                        endwhile; // End of the loop.
-?>
-
-					</main><!-- #main -->
-				</div><!-- #primary -->
-		</div>
-	</div>
-</div>
-
-<?php  get_footer();
+<?php get_footer(); ?>

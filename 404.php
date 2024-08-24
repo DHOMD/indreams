@@ -1,70 +1,60 @@
 <?php
 /**
- * The template for displaying 404 pages (not found).
  *
- * @link https://codex.wordpress.org/Creating_an_Error_404_Page
  *
- * @package indreams
+ * The template for displaying 404 pages (Not Found)
+ *
+ *
+ *
  */
-
-get_header(); ?>
-
-<div class="page-post-container-wrapper">
-	<div class="container">
-		<div class="row">
-        	<div class="col-md-8">
-
-				<div id="primary" class="content-area">
-					<main id="main" class="site-main" role="main">
-
-						<section class="error-404 not-found">
-							<header class="page-header">
-								<h4 class="page-title"><?php esc_html_e('Yee be lost!', 'indreams'); ?></h4>
-							</header><!-- .page-header -->
-
-							<div class="page-content">
-								<p><?php esc_html_e('Best be getting back home', 'indreams'); ?></p>
-
-								<?php
-                                    get_search_form();
-
-the_widget('WP_Widget_Recent_Posts');
-
-// Only show the widget if site has multiple categories.
-if (indreams_categorized_blog()) :
-    ?>
-
-								<div class="widget widget_categories">
-									<h2 class="widget-title"><?php esc_html_e('Most Used Categories', 'indreams'); ?></h2>
-									<ul>
-									<?php
-            wp_list_categories(array(
-                'orderby'    => 'count',
-                'order'      => 'DESC',
-                'show_count' => 1,
-                'title_li'   => '',
-                'number'     => 10,
-            ));
-    ?>
-									</ul>
-								</div><!-- .widget -->
-
-								<?php
-endif;
+get_header();
 ?>
+<!-- *** Single Post Starts *** -->
 
-							</div><!-- .page-content -->
-						</section><!-- .error-404 -->
+	<div id="primary" class="content-area">
+             <div class="container">
+            <div class="col-md-8">
+                <div class="content-bar">
+                    <!-- *** Post loop starts *** -->
 
-					</main><!-- #main -->
-				</div><!-- #primary -->
+                    <!-- *** Post1 Starts *** -->
+                                       
+                    <div class="post-content clear">
+                        <h1 class="embarassing"><?php echo "Yee be lost!" ?></h1>
+                        <p>
+                            <?php echo "Best be getting back home."; ?>
+                        </p>
+                        <?php the_widget('WP_Widget_Recent_Posts', array('number' => 10), array('widget_id' => '404')); ?>
 
-			</div>
-			<div class="col-md-4">
-				<?php  get_sidebar();  ?>
-			</div>
-		</div>
-	</div>
-</div>
+                        <div class="widget">
+                            <h3 class="widgettitle">
+                                <?php echo INDREAMS_MOST_USED_CATEGORIES; ?>
+                            </h3>
+                            <ul>
+                                <?php wp_list_categories(array('orderby' => 'count', 'order' => 'DESC', 'show_count' => 1, 'title_li' => '', 'number' => 10)); ?>
+                            </ul>
+                        </div>
+                        <?php
+                        /* translators: %1$s: smilie */
+                        $archive_content = '<p>' . sprintf(INDREAMS_TRY_LOOKING_MONTHLY_ARCHIVES, convert_smilies(':)')) . '</p>';
+the_widget('WP_Widget_Archives', array('count' => 0, 'dropdown' => 1), array('after_title' => '</h2>' . $archive_content));
+?>
+                        <?php the_widget('WP_Widget_Tag_Cloud'); ?>
 
-<?php  get_footer();
+                    </div>
+                            
+                          
+                           
+                    </div>
+                 </div>
+                 <div class="col-md-4">
+                    
+                     <?php get_sidebar(); ?>
+                         
+                 </div>
+                 
+                 </div><!-- #main -->
+	</div><!-- #primary -->
+
+
+<?php get_footer(); ?>

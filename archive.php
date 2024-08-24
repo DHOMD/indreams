@@ -1,62 +1,60 @@
 <?php
 /**
- * The template for displaying archive pages.
+  /**
+ * The template for displaying Archive pages
  *
- * @link https://codex.wordpress.org/Template_Hierarchy
+ * Used to display archive-type pages if nothing more specific matches a query.
+ * For example, puts together date-based pages if no date.php file exists.
  *
- * @package indreams
+ * If you'd like to further customize these archive views, you may create a
+ * new template file for each specific one. For example, Twenty Fourteen
+ * already has tag.php for Tag archives, category.php for Category archives,
+ * and author.php for Author archives.
+ *
+ *
  */
+get_header();
+?>
+<!-- ----------------------------------------------- -->
+<!-- ---------------Archive template ------------------ -->
+<!-- ----------------------------------------------- -->
 
-get_header(); ?>
+<div id="primary" class="content-area">
+<div class="container">
+    <div class="row">
+        <div class="page-post-container-wrapper">
+            <div class="col-md-8">
+                <div class="content">
+                <!-- ----------------Archives loop starts --------------------- -->
 
-<div class="page-post-container-wrapper">
-	<div class="container">
-		<div class="row">
-        	<div class="col-md-8">
+                <?php if (have_posts()): ?>
 
-				<div id="primary" class="content-area">
-					<main id="main" class="site-main" role="main">
-
-					<?php
-                    if (have_posts()) : ?>
-
-						<header class="page-header">
-							<?php
-                                the_archive_title('<h4 class="page-title">', '</h4>');
-                        the_archive_description('<div class="taxonomy-description">', '</div>');
-                        ?>
-						</header><!-- .page-header -->
-
-						<?php
-                        /* Start the Loop */
-                        while (have_posts()) : the_post();
-
-                            /*
-                             * Include the Post-Format-specific template for the content.
-                             * If you want to override this in a child theme, then include a file
-                             * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-                             */
-                            get_template_part('template-parts/content', get_post_format());
-
-                        endwhile;
-
-                        the_posts_navigation();
-
-                    else :
-
-                        get_template_part('template-parts/content', 'none');
-
-                    endif; ?>
-
-					</main><!-- #main -->
-				</div><!-- #primary -->
-
-			</div>
-			<div class="col-md-4">
-				<?php  get_sidebar();  ?>
-			</div>
-		</div>
-	</div>
+                    <?php
+                    /* Since we called the_post() above, we need to
+                     * rewind the loop back to the beginning that way
+                     * we can run the loop properly, in full.
+                     */
+                    rewind_posts();
+                    /* Run the loop for the archives page to output the posts.
+                     * If you want to overload this in a child theme then include a file
+                     * called loop-archives.php and that will be used instead.
+                     */
+                    get_template_part('loop', 'archive');
+                    ?>
+                    <nav id="nav-single"> <span class="nav-previous">
+                            <?php next_posts_link(INDREAMS_OLDER_POSTS); ?>
+                        </span> <span class="nav-next">
+                            <?php previous_posts_link(INDREAMS_NEWER_POSTS); ?>
+                        </span> </nav>
+                <?php endif; ?>
+                <!-- ------------------Archives loop ends----------------------- -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <?php get_sidebar(); ?>
+            </div>
+        </div>
+    </div>
 </div>
-
-<?php  get_footer();
+</div>
+<?php get_footer(); ?>

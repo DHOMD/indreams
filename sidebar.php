@@ -1,17 +1,30 @@
 <?php
 /**
- * The sidebar containing the main widget area.
+ * The Sidebar containing the main widget area
  *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
- * @package indreams
  */
-
-if (! is_active_sidebar('sidebar-1')) {
-    return;
-}
 ?>
-
-<aside id="secondary" class="widget-area" role="complementary">
-	<?php dynamic_sidebar('sidebar-1'); ?>
-</aside><!-- #secondary -->
+<div class="sidebar">
+    <?php if (!dynamic_sidebar('primary-widget-area')) : ?>
+        
+        <?php get_search_form(); ?>
+        <h3>
+            <?php echo INDREAMS_CATEGORIES; ?>
+        </h3>
+        <ul>
+            <?php wp_list_categories('title_li'); ?>
+        </ul>
+        <h3>
+            <?php echo INDREAMS_ARCHIVES; ?>
+        </h3>
+        <ul>
+            <?php wp_get_archives('type=monthly'); ?>
+        </ul> 		
+    <?php endif; // end primary widget area?>
+    <?php
+// A second sidebar for widgets, just because.
+    if (is_active_sidebar('secondary-widget-area')) :
+        ?>
+        <?php dynamic_sidebar('secondary-widget-area'); ?>
+    <?php endif; ?>      
+</div>
