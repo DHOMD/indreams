@@ -7,12 +7,10 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
+    <div id="primary" class="content-area">
              <div class="container">
                 <div class="content-bar" id="content">
-		 <!-- Start the Loop. -->
-                <?php if (have_posts()) : while (have_posts()) : the_post(); ?>  
-                        <!-- ---------------Post starts ---------------- -->
+         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>  
                         <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                             <div class="page-heading">
                                 <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
@@ -32,18 +30,10 @@ get_header(); ?>
                     ?>
                     <div>
                         <p>
-                            <?php echo INDREAMS_SORRY_NO_POST_MATCHED_YOUR_CRETERIA; ?>
+                            <?php echo esc_html__( 'Sorry, no post matched your criteria.', 'indreams' ); ?>
                         </p>
                     </div>
                 <?php endif; ?>
                       
-                        <!----------------------Post Single Ends -------------------------->
-                <!-- ------------------Comment starts ----------------------- -->
-                <?php comments_template(); ?>
-                <!-- ------------------Comment Ends----------------------- -->
-                 
-                 </div><!-- #main -->
-	</div><!-- #primary -->
-
-
-<?php get_footer(); ?>
+                        <?php comments_template(); ?>
+                </div></div><?php get_footer(); ?>
