@@ -436,19 +436,20 @@ function of_recognized_font_styles() {
  * @return   bool
  */
 function of_validate_hex( $hex ) {
-	$hex = trim( $hex );
-	/* Strip recognized prefixes. */
-	if ( 0 === strpos( $hex, '#' ) ) {
-		$hex = substr( $hex, 1 );
-	}
-	elseif ( 0 === strpos( $hex, '%23' ) ) {
-		$hex = substr( $hex, 3 );
-	}
-	/* Regex match. */
-	if ( 0 === preg_match( '/^[0-9a-fA-F]{6}$/', $hex ) ) {
-		return false;
-	}
-	else {
-		return true;
-	}
+    // PHP 8.1+ compatibility: Ensure $hex is a string before passing to native string functions
+    $hex = trim( (string) $hex );
+    /* Strip recognized prefixes. */
+    if ( 0 === strpos( $hex, '#' ) ) {
+        $hex = substr( $hex, 1 );
+    }
+    elseif ( 0 === strpos( $hex, '%23' ) ) {
+        $hex = substr( $hex, 3 );
+    }
+    /* Regex match. */
+    if ( 0 === preg_match( '/^[0-9a-fA-F]{6}$/', $hex ) ) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }

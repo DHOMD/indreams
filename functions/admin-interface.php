@@ -121,7 +121,6 @@ function indreams_optionsframework_options_page() {
     <?php if (!empty($update_message)) echo $update_message; ?>
     <div style="clear:both;"></div>
     </div>
-    <!--wrap-->
     <?php
 }
 
@@ -157,7 +156,7 @@ function indreams_load_only() {
                     $option_id = $option['id'];
                     $temp_color = indreams_get_option($option_id);
                     $option_id = $option['id'] . '_color';
-                    $color = $temp_color['color'];
+                    $color = isset($temp_color['color']) ? $temp_color['color'] : '';
                 } else {
                     $option_id = $option['id'];
                     $color = indreams_get_option($option_id);
@@ -303,11 +302,11 @@ function indreams_load_only() {
                     responseType: false,
                     onChange: function(file, extension){},
                     onSubmit: function(file, extension){
-            clickedObject.text('Uploading'); // change button text, when user selects file	
+            clickedObject.text('Uploading'); // change button text, when user selects file  
                     this.disable(); // If you want to allow uploading only 1 file at time, you can disable upload button
                     interval = window.setInterval(function(){
             var text = clickedObject.text();
-                    if (text.length < 13){	clickedObject.text(text + '.'); }
+                    if (text.length < 13){  clickedObject.text(text + '.'); }
             else { clickedObject.text('Uploading'); }
             }, 200);
             },
@@ -403,14 +402,14 @@ add_action('wp_ajax_of_ajax_post_action', 'indreams_ajax_callback');
 function indreams_ajax_callback() {
     global $wpdb; // this is how you get access to the database
 
+    $save_type = isset($_POST['type']) ? $_POST['type'] : '';
 
-    $save_type = $_POST['type'];
     //Uploads
     if ($save_type == 'upload') {
 
-        $clickedID = $_POST['data']; // Acts as the name
-        $filename = $_FILES[$clickedID];
-        $filename['name'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', $filename['name']);
+        $clickedID = isset($_POST['data']) ? $_POST['data'] : ''; // Acts as the name
+        $filename = isset($_FILES[$clickedID]) ? $_FILES[$clickedID] : array('name' => '');
+        $filename['name'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', (string)$filename['name']);
 
         $override['test_form'] = false;
         $override['action'] = 'wp_handle_upload';
@@ -426,13 +425,13 @@ function indreams_ajax_callback() {
         } // Is the Response
     } elseif ($save_type == 'image_reset') {
 
-        $id = $_POST['data']; // Acts as the name
+        $id = isset($_POST['data']) ? $_POST['data'] : ''; // Acts as the name
         indreams_delete_option($id);
     } elseif ($save_type == 'options' OR $save_type == 'framework') {
-        $data = $_POST['data'];
+        $data = isset($_POST['data']) ? $_POST['data'] : '';
 
         parse_str($data, $output);
-        //print_r($output);
+        
         //Pull options
         $options = indreams_get_option('of_template');
 
@@ -452,12 +451,12 @@ function indreams_ajax_callback() {
                     foreach ($type as $array) {
                         if ($array['type'] == 'text') {
                             $id = $array['id'];
-                            $std = $array['std'];
-                            $new_value = $output[$id];
+                            $std = isset($array['std']) ? $array['std'] : '';
+                            $new_value = isset($output[$id]) ? $output[$id] : '';
                             if ($new_value == '') {
                                 $new_value = $std;
                             }
-                            indreams_update_option($id, stripslashes($new_value));
+                            indreams_update_option($id, stripslashes((string)$new_value));
                         }
                     }
                 } elseif ($new_value == '' && $type == 'checkbox') { // Checkbox Save
@@ -481,29 +480,29 @@ function indreams_ajax_callback() {
 
                     $typography_array = array();
 
-                    $typography_array['size'] = $output[$option_array['id'] . '_size'];
+                    $typography_array['size'] = isset($output[$option_array['id'] . '_size']) ? $output[$option_array['id'] . '_size'] : '';
 
-                    $typography_array['face'] = stripslashes($output[$option_array['id'] . '_face']);
+                    $typography_array['face'] = stripslashes(isset($output[$option_array['id'] . '_face']) ? (string)$output[$option_array['id'] . '_face'] : '');
 
-                    $typography_array['style'] = $output[$option_array['id'] . '_style'];
+                    $typography_array['style'] = isset($output[$option_array['id'] . '_style']) ? $output[$option_array['id'] . '_style'] : '';
 
-                    $typography_array['color'] = $output[$option_array['id'] . '_color'];
+                    $typography_array['color'] = isset($output[$option_array['id'] . '_color']) ? $output[$option_array['id'] . '_color'] : '';
 
                     indreams_update_option($id, $typography_array);
                 } elseif ($type == 'border') {
 
                     $border_array = array();
 
-                    $border_array['width'] = $output[$option_array['id'] . '_width'];
+                    $border_array['width'] = isset($output[$option_array['id'] . '_width']) ? $output[$option_array['id'] . '_width'] : '';
 
-                    $border_array['style'] = $output[$option_array['id'] . '_style'];
+                    $border_array['style'] = isset($output[$option_array['id'] . '_style']) ? $output[$option_array['id'] . '_style'] : '';
 
-                    $border_array['color'] = $output[$option_array['id'] . '_color'];
+                    $border_array['color'] = isset($output[$option_array['id'] . '_color']) ? $output[$option_array['id'] . '_color'] : '';
 
                     indreams_update_option($id, $border_array);
                 } elseif ($type != 'upload_min') {
 
-                    indreams_update_option($id, stripslashes($new_value));
+                    indreams_update_option($id, stripslashes((string)$new_value));
                 }
             }
         }
@@ -516,12 +515,16 @@ function indreams_ajax_callback() {
 /* ----------------------------------------------------------------------------------- */
 
 function indreams_optionsframework_machine($options) {
-
+    global $allowedtags;
+    
     $counter = 0;
     $menu = '';
     $output = '';
-    foreach ($options as $value) {
+    $option_name = 'indreams_options'; // Resolves PHP 8 undefined variable warning
 
+    foreach ($options as $value) {
+        $explain_value = isset($value['desc']) ? $value['desc'] : ''; // Resolves undefined warning
+        
         $counter++;
         $val = '';
         //Start Heading
@@ -532,7 +535,7 @@ function indreams_optionsframework_machine($options) {
             }
             //$output .= '<div class="section section-'. $value['type'] .'">'."\n".'<div class="option-inner">'."\n";
             $output .= '<div class="section section-' . $value['type'] . ' ' . $class . '">' . "\n";
-            $output .= '<h3 class="heading">' . $value['name'] . '</h3>' . "\n";
+            $output .= '<h3 class="heading">' . (isset($value['name']) ? $value['name'] : '') . '</h3>' . "\n";
             $output .= '<div class="option">' . "\n" . '<div class="controls">' . "\n";
         }
         //End Heading
@@ -540,7 +543,7 @@ function indreams_optionsframework_machine($options) {
         switch ($value['type']) {
 
             case 'text':
-                $val = $value['std'];
+                $val = isset($value['std']) ? $value['std'] : '';
                 $std = indreams_get_option($value['id']);
                 if ($std != "") {
                     $val = $std;
@@ -594,7 +597,7 @@ function indreams_optionsframework_machine($options) {
                 }
                 $std = indreams_get_option($value['id']);
                 if ($std != "") {
-                    $ta_value = stripslashes($std);
+                    $ta_value = stripslashes((string)$std);
                 }
                 $output .= '<textarea class="of-input" name="' . $value['id'] . '" id="' . $value['id'] . '" cols="' . $cols . '" rows="8">' . $ta_value . '</textarea>';
 
@@ -620,7 +623,7 @@ function indreams_optionsframework_machine($options) {
                 }
                 $std = indreams_get_option($value['id']);
                 if ($std != "") {
-                    $ta_value = stripslashes($std);
+                    $ta_value = stripslashes((string)$std);
                 }
                 $output .= '<textarea class="of-input" name="' . $value['id'] . '" id="' . $value['id'] . '" cols="' . $cols . '" rows="8">' . $ta_value . '</textarea>';
 
@@ -637,7 +640,7 @@ function indreams_optionsframework_machine($options) {
                             $checked = ' checked';
                         }
                     } else {
-                        if ($value['std'] == $key) {
+                        if (isset($value['std']) && $value['std'] == $key) {
                             $checked = ' checked';
                         }
                     }
@@ -652,7 +655,7 @@ function indreams_optionsframework_machine($options) {
                 foreach ($value['options'] as $key => $option) {
                     $checked = '';
                     $label = $option;
-                    $option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($key));
+                    $option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower((string)$key));
                     $id = $option_name . '-' . $value['id'] . '-' . $option;
                     $name = $option_name . '[' . $value['id'] . '][' . $option . ']';
                     if (isset($val[$option])) {
@@ -669,11 +672,11 @@ function indreams_optionsframework_machine($options) {
                 break;
             case "upload_min":
 
-                $output .= indreams_optionsframework_uploader_function($value['id'], $value['std'], 'min');
+                $output .= indreams_optionsframework_uploader_function($value['id'], isset($value['std']) ? $value['std'] : '', 'min');
 
                 break;
             case "color":
-                $val = $value['std'];
+                $val = isset($value['std']) ? $value['std'] : '';
                 $stored = indreams_get_option($value['id']);
                 if ($stored != "") {
                     $val = $stored;
@@ -684,12 +687,12 @@ function indreams_optionsframework_machine($options) {
 
             case "typography":
 
-                $default = $value['std'];
+                $default = isset($value['std']) ? $value['std'] : array('size' => '', 'face' => '', 'style' => '', 'color' => '');
                 $typography_stored = indreams_get_option($value['id']);
 
                 /* Font Size */
-                $val = $default['size'];
-                if ($typography_stored['size'] != "") {
+                $val = isset($default['size']) ? $default['size'] : '';
+                if (isset($typography_stored['size']) && $typography_stored['size'] != "") {
                     $val = $typography_stored['size'];
                 }
                 $output .= '<select class="of-typography of-typography-size" name="' . $value['id'] . '_size" id="' . $value['id'] . '_size">';
@@ -704,8 +707,8 @@ function indreams_optionsframework_machine($options) {
                 $output .= '</select>';
 
                 /* Font Face */
-                $val = $default['face'];
-                if ($typography_stored['face'] != "")
+                $val = isset($default['face']) ? $default['face'] : '';
+                if (isset($typography_stored['face']) && $typography_stored['face'] != "")
                     $val = $typography_stored['face'];
                 $font01 = '';
                 $font02 = '';
@@ -716,28 +719,28 @@ function indreams_optionsframework_machine($options) {
                 $font07 = '';
                 $font08 = '';
                 $font09 = '';
-                if (strpos($val, 'Arial, sans-serif') !== false) {
+                if (strpos((string)$val, 'Arial, sans-serif') !== false) {
                     $font01 = 'selected="selected"';
                 }
-                if (strpos($val, 'Verdana, Geneva') !== false) {
+                if (strpos((string)$val, 'Verdana, Geneva') !== false) {
                     $font02 = 'selected="selected"';
                 }
-                if (strpos($val, 'Trebuchet') !== false) {
+                if (strpos((string)$val, 'Trebuchet') !== false) {
                     $font03 = 'selected="selected"';
                 }
-                if (strpos($val, 'Georgia') !== false) {
+                if (strpos((string)$val, 'Georgia') !== false) {
                     $font04 = 'selected="selected"';
                 }
-                if (strpos($val, 'Times New Roman') !== false) {
+                if (strpos((string)$val, 'Times New Roman') !== false) {
                     $font05 = 'selected="selected"';
                 }
-                if (strpos($val, 'Tahoma, Geneva') !== false) {
+                if (strpos((string)$val, 'Tahoma, Geneva') !== false) {
                     $font06 = 'selected="selected"';
                 }
-                if (strpos($val, 'Palatino') !== false) {
+                if (strpos((string)$val, 'Palatino') !== false) {
                     $font07 = 'selected="selected"';
                 }
-                if (strpos($val, 'Helvetica') !== false) {
+                if (strpos((string)$val, 'Helvetica') !== false) {
                     $font08 = 'selected="selected"';
                 }
 
@@ -753,8 +756,8 @@ function indreams_optionsframework_machine($options) {
                 $output .= '</select>';
 
                 /* Font Weight */
-                $val = $default['style'];
-                if ($typography_stored['style'] != "") {
+                $val = isset($default['style']) ? $default['style'] : '';
+                if (isset($typography_stored['style']) && $typography_stored['style'] != "") {
                     $val = $typography_stored['style'];
                 }
                 $normal = '';
@@ -782,8 +785,8 @@ function indreams_optionsframework_machine($options) {
                 $output .= '</select>';
 
                 /* Font Color */
-                $val = $default['color'];
-                if ($typography_stored['color'] != "") {
+                $val = isset($default['color']) ? $default['color'] : '';
+                if (isset($typography_stored['color']) && $typography_stored['color'] != "") {
                     $val = $typography_stored['color'];
                 }
                 $output .= '<div id="' . $value['id'] . '_color_picker" class="colorSelector"><div></div></div>';
@@ -791,12 +794,12 @@ function indreams_optionsframework_machine($options) {
                 break;
             case "border":
 
-                $default = $value['std'];
+                $default = isset($value['std']) ? $value['std'] : array('width' => '', 'style' => '', 'color' => '');
                 $border_stored = indreams_get_option($value['id']);
 
                 /* Border Width */
-                $val = $default['width'];
-                if ($border_stored['width'] != "") {
+                $val = isset($default['width']) ? $default['width'] : '';
+                if (isset($border_stored['width']) && $border_stored['width'] != "") {
                     $val = $border_stored['width'];
                 }
                 $output .= '<select class="of-border of-border-width" name="' . $value['id'] . '_width" id="' . $value['id'] . '_width">';
@@ -811,8 +814,8 @@ function indreams_optionsframework_machine($options) {
                 $output .= '</select>';
 
                 /* Border Style */
-                $val = $default['style'];
-                if ($border_stored['style'] != "") {
+                $val = isset($default['style']) ? $default['style'] : '';
+                if (isset($border_stored['style']) && $border_stored['style'] != "") {
                     $val = $border_stored['style'];
                 }
                 $solid = '';
@@ -835,8 +838,8 @@ function indreams_optionsframework_machine($options) {
                 $output .= '</select>';
 
                 /* Border Color */
-                $val = $default['color'];
-                if ($border_stored['color'] != "") {
+                $val = isset($default['color']) ? $default['color'] : '';
+                if (isset($border_stored['color']) && $border_stored['color'] != "") {
                     $val = $border_stored['color'];
                 }
                 $output .= '<div id="' . $value['id'] . '_color_picker" class="colorSelector"><div></div></div>';
@@ -850,8 +853,8 @@ function indreams_optionsframework_machine($options) {
                     if ($val != '') {
                         if ($val == $key) {
                             $selected = ' of-radio-img-selected';
+                            $checked = ' checked="checked"'; // Fix PHP 8 bug: replaced invalid checked() usage here
                         }
-                        checked($options['$key'], $val);
                     }
                     $output .= '<input type="radio" id="' . esc_attr($value['id'] . '_' . $key) . '" class="of-radio-img-radio" value="' . esc_attr($key) . '" name="' . esc_attr($name) . '" ' . $checked . ' />';
                     $output .= '<div class="of-radio-img-label">' . esc_html($key) . '</div>';
@@ -859,14 +862,14 @@ function indreams_optionsframework_machine($options) {
                 }
                 break;
             case "info":
-                $default = $value['std'];
+                $default = isset($value['std']) ? $value['std'] : '';
                 $output .= $default;
                 break;
             case "heading":
                 if ($counter >= 2) {
                     $output .= '</div>' . "\n";
                 }
-                $jquery_click_hook = preg_replace('/[^a-zA-Z0-9._\-]/', "", strtolower($value['name']));
+                $jquery_click_hook = preg_replace('/[^a-zA-Z0-9._\-]/', "", strtolower((string)$value['name']));
                 $jquery_click_hook = "of-option-" . $jquery_click_hook;
                 $menu .= '<li><a title="' . $value['name'] . '" href="#' . $jquery_click_hook . '">' . $value['name'] . '</a></li>';
                 $output .= '<div class="group" id="' . $jquery_click_hook . '"><h2>' . $value['name'] . '</h2>' . "\n";
@@ -876,12 +879,12 @@ function indreams_optionsframework_machine($options) {
         if (is_array($value['type'])) {
             foreach ($value['type'] as $array) {
                 $id = $array['id'];
-                $std = $array['std'];
+                $std = isset($array['std']) ? $array['std'] : '';
                 $saved_std = indreams_get_option($id);
                 if ($saved_std != $std) {
                     $std = $saved_std;
                 }
-                $meta = $array['meta'];
+                $meta = isset($array['meta']) ? $array['meta'] : '';
                 if ($array['type'] == 'text') { // Only text at this point
                     $output .= '<input class="input-text-small of-input" name="' . $id . '" id="' . $id . '" type="text" value="' . $std . '" />';
                     $output .= '<span class="meta-two">' . $meta . '</span>';
@@ -892,11 +895,7 @@ function indreams_optionsframework_machine($options) {
             if ($value['type'] != "checkbox") {
                 $output .= '<br/>';
             }
-            if (!isset($value['desc'])) {
-                $explain_value = '';
-            } else {
-                $explain_value = $value['desc'];
-            }
+            // Logic handled gracefully with initialized variable
             $output .= '</div><div class="explain">' . $explain_value . '</div>' . "\n";
             $output .= '<div class="clear"> </div></div></div>' . "\n";
         }
@@ -919,7 +918,7 @@ function indreams_optionsframework_uploader_function($id, $std, $mod) {
         if (indreams_get_option($id) != "") {
             $val = indreams_get_option($id);
         }
-        $uploader .= '<input class=\'of-input\' name=\'' . $id . '\' id=\'' . $id . '_upload\' type=\'text\' value=\'' . str_replace("'", "", $val) . '\' />';
+        $uploader .= '<input class=\'of-input\' name=\'' . $id . '\' id=\'' . $id . '_upload\' type=\'text\' value=\'' . str_replace("'", "", (string)$val) . '\' />';
     }
     $uploader .= '<div class="upload_button_div"><span class="button image_upload_button" id="' . $id . '">Upload Image</span>';
     if (!empty($upload)) {
@@ -931,8 +930,8 @@ function indreams_optionsframework_uploader_function($id, $std, $mod) {
     $uploader .='</div>' . "\n";
     $uploader .= '<div class="clear"></div>' . "\n";
     $findme = 'wp-content/uploads';
-    $imgvideocheck = strpos($upload, $findme);
-    if ((!empty($upload)) && ($imgvideocheck === true)) {
+    $imgvideocheck = strpos((string)$upload, $findme);
+    if ((!empty($upload)) && ($imgvideocheck !== false)) {
         $uploader .= '<a class="of-uploaded-image" href="' . $upload . '">';
         $uploader .= '<img class="of-option-image" id="image_' . $id . '" src="' . $upload . '" alt="" />';
         $uploader .= '</a>';
