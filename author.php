@@ -5,8 +5,6 @@
  */
 get_header();
 ?>
-<!-- *** Single Post Starts *** -->
-
 <div id="primary" class="content-area">
 <div class="container">
     <div class="row">
@@ -14,7 +12,7 @@ get_header();
             <div class="col-md-8">
                 <div class="content">
                         <?php if (have_posts()) : the_post(); ?>
-                            <h4><?php printf(INDREAMS_AUTHOR_ARCHIVES,
+                            <h4><?php printf( __( 'Author Archives: %s', 'indreams' ),
                                 "<a class='url fn n' href='" . get_author_posts_url(get_the_author_meta('ID')) . "' title='" . esc_attr(get_the_author()) . "' rel='me'>" . get_the_author() . "</a>"); ?></h4>
                             <?php
                             // If a user has filled out their description, show a bio on their entries.
@@ -23,7 +21,7 @@ get_header();
         <?php echo get_avatar(get_the_author_meta('user_email'),
                 apply_filters('indreams_author_bio_avatar_size',
                         60)); ?>
-                                <h5 class="auth-title"><?php printf(INDREAMS_ABOUT_AUTHOR,
+                                <h5 class="auth-title"><?php printf( __( 'About %s', 'indreams' ),
                                 get_the_author()); ?></h5>
                                 <p class="auth-desc"><?php the_author_meta('description'); ?></p>
                         <?php endif; ?>
@@ -44,7 +42,6 @@ get_header();
                        
                 <?php endif; ?>
 
-                    <!-- *** Post loop ends*** -->
                     </div><?php indreams_numeric_posts_nav() ?>
                     </div>
             </div>

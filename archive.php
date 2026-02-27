@@ -15,18 +15,12 @@
  */
 get_header();
 ?>
-<!-- ----------------------------------------------- -->
-<!-- ---------------Archive template ------------------ -->
-<!-- ----------------------------------------------- -->
-
 <div id="primary" class="content-area">
 <div class="container">
     <div class="row">
         <div class="page-post-container-wrapper">
             <div class="col-md-8">
                 <div class="content">
-                <!-- ----------------Archives loop starts --------------------- -->
-
                 <?php if (have_posts()): ?>
 
                     <?php
@@ -42,12 +36,11 @@ get_header();
                     get_template_part('loop', 'archive');
                     ?>
                     <nav id="nav-single"> <span class="nav-previous">
-                            <?php next_posts_link(INDREAMS_OLDER_POSTS); ?>
+                            <?php next_posts_link( __( 'Older posts', 'indreams' ) ); ?>
                         </span> <span class="nav-next">
-                            <?php previous_posts_link(INDREAMS_NEWER_POSTS); ?>
+                            <?php previous_posts_link( __( 'Newer posts', 'indreams' ) ); ?>
                         </span> </nav>
                 <?php endif; ?>
-                <!-- ------------------Archives loop ends----------------------- -->
                 </div>
             </div>
             <div class="col-md-4">

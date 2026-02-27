@@ -7,13 +7,11 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
+    <div id="primary" class="content-area">
              <div class="container">
             <div class="col-md-8">
                 <div class="content-bar" id="content">
-		 <!-- Start the Loop. -->
-                <?php if (have_posts()) : while (have_posts()) : the_post(); ?>  
-                        <!-- ---------------Post starts ---------------- -->
+         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>  
                         <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                             <div class="post-heading">
                                 <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
@@ -26,9 +24,9 @@ get_header(); ?>
                         $archive_month = get_the_time('m');
                         $archive_day = get_the_time('d');
                         ?>
-				    <a href="<?php the_permalink() ?>"> <?php echo esc_html( get_the_date() ) ?></a></li>
+                    <a href="<?php the_permalink() ?>"> <?php echo esc_html( get_the_date() ) ?></a></li>
                                     <li class="meta-cat">Category : <?php the_category(', '); ?></li>
-				    <li class="meta-cat">Tags : <?php echo get_the_tag_list(); ?></li>
+                    <li class="meta-cat">Tags : <?php echo get_the_tag_list(); ?></li>
                                     <li class="meta-comm">Comment : <?php comments_popup_link('0', '1', '%'); ?></li>
                                 </ul>
                             </div>
@@ -45,19 +43,16 @@ get_header(); ?>
                     ?>
                     <div>
                         <p>
-                            <?php echo INDREAMS_SORRY_NO_POST_MATCHED_YOUR_CRETERIA; ?>
+                            <?php echo esc_html__( 'Sorry, no post matched your criteria.', 'indreams' ); ?>
                         </p>
                     </div>
                 <?php endif; ?>
                         <nav id="nav-single"> <span class="nav-previous">
-                        <?php previous_post_link('%link', __('<span class="meta-nav">&larr;</span> Previous Post <span class="post-title">%title</span>', 'Next post link', 'indreams')); ?>
+                        <?php previous_post_link('%link', __('<span class="meta-nav">&larr;</span> Previous Post <span class="post-title">%title</span>', 'indreams')); ?>
                     </span> <span class="nav-next">
-                        <?php next_post_link('%link', __('Next Post <span class="meta-nav">&rarr;</span><span class="post-title">%title</span>', 'Next post link', 'indreams')); ?>
+                        <?php next_post_link('%link', __('Next Post <span class="meta-nav">&rarr;</span><span class="post-title">%title</span>', 'indreams')); ?>
                     </span> </nav>
-                        <!----------------------Post Single Ends -------------------------->
-                <!-- ------------------Comment starts ----------------------- -->
-                <?php comments_template(); ?>
-                <!-- ------------------Comment Ends----------------------- -->
+                        <?php comments_template(); ?>
                 </div>
                  </div>
                  <div class="col-md-4">
@@ -66,8 +61,4 @@ get_header(); ?>
                          
                  </div>
                  
-                 </div><!-- #main -->
-	</div><!-- #primary -->
-
-
-<?php get_footer(); ?>
+                 </div></div><?php get_footer(); ?>
